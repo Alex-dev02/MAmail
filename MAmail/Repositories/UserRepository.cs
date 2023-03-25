@@ -1,5 +1,6 @@
 ﻿using MAmail.Data;
 using MAmail.Entities;
+using System.Linq;
 
 namespace MAmail.Repositories
 {
@@ -16,6 +17,10 @@ namespace MAmail.Repositories
         {
             db.Users.Add(user);
             db.SaveChanges();
+        }
+        public User? GetById(int userId)
+        {
+            return db.Users.Find(userId);
         }
     }
 }

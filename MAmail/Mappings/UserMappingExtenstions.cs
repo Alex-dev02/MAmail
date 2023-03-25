@@ -18,5 +18,15 @@ namespace MAmail.Mappings
 
             return user;
         }
+        public static UserGetByIdResponseDto ToUserGetByIdResponseDto(User user)
+        {
+            UserGetByIdResponseDto userGetByIdResponse = new UserGetByIdResponseDto();
+            userGetByIdResponse.Id = user.Id;
+            userGetByIdResponse.FirstName = user.FirstName;
+            userGetByIdResponse.LastName = user.LastName;
+            userGetByIdResponse.Email = user.Email;
+
+            return userGetByIdResponse;
+        }
     }
 }

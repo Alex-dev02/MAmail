@@ -22,5 +22,15 @@ namespace MAmail.Controllers
 
             return Ok();
         }
+        [HttpGet("/get/{userId}")]
+        public ActionResult<UserGetByIdResponseDto> GetUserById(int userId)
+        {
+            var user = userService.GetUserById(userId);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
     }
 }

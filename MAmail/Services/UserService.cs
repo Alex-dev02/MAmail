@@ -2,6 +2,7 @@
 using MAmail.Entities;
 using MAmail.Mappings;
 using MAmail.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MAmail.Services
 {
@@ -18,6 +19,15 @@ namespace MAmail.Services
             User user = UserMappingExtenstions.FromUserCreateRequestDto(userDto);
 
             userRepository.CreateUser(user);
+        }
+        public UserGetByIdResponseDto? GetUserById(int userId)
+        {
+            User? user = userRepository.GetById(userId);
+
+            if (user == null)
+                return null;
+
+            return UserMappingExtenstions.ToUserGetByIdResponseDto(user);
         }
     }
 }
