@@ -40,5 +40,16 @@ namespace MAmail.Services
 
             return true;
         }
+        public bool DeleteUser(int userId)
+        {
+            var userToDelete = userRepository.GetUserById(userId);
+
+            if (userToDelete == null)
+                return false;
+
+            userRepository.DeleteUser(userToDelete);
+
+            return true;
+        }
     }
 }

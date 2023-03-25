@@ -17,6 +17,7 @@ namespace MAmail.Repositories
         public void CreateUser(User user)
         {
             db.Users.Add(user);
+
             db.SaveChanges();
         }
         public User? GetUserById(int userId)
@@ -27,6 +28,12 @@ namespace MAmail.Repositories
         {
             user.FirstName = updatedUser.FirstName;
             user.LastName = updatedUser.LastName;
+
+            db.SaveChanges();
+        }
+        public void DeleteUser(User user)
+        {
+            db.Users.Remove(user);
 
             db.SaveChanges();
         }

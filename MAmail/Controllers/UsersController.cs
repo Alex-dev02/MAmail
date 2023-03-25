@@ -42,5 +42,15 @@ namespace MAmail.Controllers
 
             return Ok();
         }
+        [HttpDelete("/delete/{userId}")]
+        public ActionResult DeleteUser(int userId)
+        {
+            var success = userService.DeleteUser(userId);
+
+            if (!success)
+                return NotFound();
+
+            return Ok();
+        }
     }
 }
