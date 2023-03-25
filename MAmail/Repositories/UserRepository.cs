@@ -1,4 +1,5 @@
 ﻿using MAmail.Data;
+using MAmail.Dtos;
 using MAmail.Entities;
 using System.Linq;
 
@@ -18,9 +19,16 @@ namespace MAmail.Repositories
             db.Users.Add(user);
             db.SaveChanges();
         }
-        public User? GetById(int userId)
+        public User? GetUserById(int userId)
         {
             return db.Users.Find(userId);
+        }
+        public void UpdateUser(UserUpdateDto updatedUser, User user)
+        {
+            user.FirstName = updatedUser.FirstName;
+            user.LastName = updatedUser.LastName;
+
+            db.SaveChanges();
         }
     }
 }

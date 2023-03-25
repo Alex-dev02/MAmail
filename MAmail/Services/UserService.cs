@@ -22,12 +22,23 @@ namespace MAmail.Services
         }
         public UserGetByIdResponseDto? GetUserById(int userId)
         {
-            User? user = userRepository.GetById(userId);
+            User? user = userRepository.GetUserById(userId);
 
             if (user == null)
                 return null;
 
             return UserMappingExtenstions.ToUserGetByIdResponseDto(user);
+        }
+        public bool UpdateUser(UserUpdateDto updatedUser)
+        {
+            var user = userRepository.GetUserById(updatedUser.Id);
+
+            if (user == null)
+                return false;
+
+            userRepository.UpdateUser(updatedUser, user);
+
+            return true;
         }
     }
 }

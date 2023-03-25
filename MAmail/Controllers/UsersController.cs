@@ -32,5 +32,15 @@ namespace MAmail.Controllers
 
             return Ok(user);
         }
+        [HttpPatch("/update")]
+        public ActionResult UpdateUser([FromBody] UserUpdateDto user)
+        {
+            var success = userService.UpdateUser(user);
+
+            if (!success)
+                return NotFound();
+
+            return Ok();
+        }
     }
 }
