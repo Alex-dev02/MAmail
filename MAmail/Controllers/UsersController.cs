@@ -15,13 +15,6 @@ namespace MAmail.Controllers
             _userService = userService;
         }
 
-        [HttpPost("/create")]
-        public ActionResult CreateUser([FromBody] UserCreateRequestDto user)
-        {
-            _userService.CreateUser(user);
-
-            return Ok();
-        }
         [HttpGet("/get/{userId}")]
         public ActionResult<UserGetByIdResponseDto> GetUserById(int userId)
         {
@@ -32,6 +25,7 @@ namespace MAmail.Controllers
 
             return Ok(user);
         }
+
         [HttpPatch("/update")]
         public ActionResult UpdateUser([FromBody] UserUpdateDto user)
         {
@@ -42,6 +36,7 @@ namespace MAmail.Controllers
 
             return Ok();
         }
+
         [HttpDelete("/delete/{userId}")]
         public ActionResult DeleteUser(int userId)
         {
