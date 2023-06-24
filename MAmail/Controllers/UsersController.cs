@@ -2,6 +2,7 @@
 using MAmail.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MAmail.Controllers
 {
@@ -39,9 +40,11 @@ namespace MAmail.Controllers
             return Ok();
         }
 
-        [HttpDelete("/delete/{userId}")]
-        public async Task<IActionResult> DeleteUser(int userId)
+        [HttpDelete("/delete")]
+        public async Task<IActionResult> DeleteUser()
         {
+            int userId = int.Parse(this.User.Claims.First(i => i.Type == "userId").Value);
+
             var success = await _userService.DeleteUser(userId);
 
             if (!success)
