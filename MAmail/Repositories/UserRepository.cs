@@ -31,6 +31,11 @@ namespace MAmail.Repositories
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
+        public async Task<List<User>?> GetUsersByEmail(List<string> emails)
+        {
+            return await _db.Users.Where(u => emails.Contains(u.Email)).ToListAsync();
+        }
+
         public async void UpdateUser(UserUpdateDto updatedUser, User user)
         {
             user.FirstName = updatedUser.FirstName;
