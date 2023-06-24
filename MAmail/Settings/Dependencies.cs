@@ -1,7 +1,6 @@
 ﻿using MAmail.Data;
 using MAmail.Repositories;
 using MAmail.Services;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace MAmail.Settings
 {
