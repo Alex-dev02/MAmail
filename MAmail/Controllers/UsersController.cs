@@ -35,7 +35,7 @@ namespace MAmail.Controllers
             int userId = int.Parse(this.User.Claims.First(i => i.Type == "userId").Value);
 
             if (user.Id != userId)
-                return BadRequest("Invalid user id");
+                return BadRequest("Invalid user id!");
 
             var success = await _userService.UpdateUser(user);
 
