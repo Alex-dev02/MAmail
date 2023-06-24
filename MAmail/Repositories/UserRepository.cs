@@ -1,6 +1,7 @@
 ﻿using MAmail.Data;
 using MAmail.Dtos;
 using MAmail.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace MAmail.Repositories
@@ -20,17 +21,24 @@ namespace MAmail.Repositories
 
             _db.SaveChanges();
         }
-        public User? GetUserById(int userId)
+        public async Task<User?> GetUserById(int userId)
         {
-            return _db.Users.Find(userId);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
         }
-        public void UpdateUser(UserUpdateDto updatedUser, User user)
+        
+        public async Task<User?> GetUserByEmail(string email)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async void UpdateUser(UserUpdateDto updatedUser, User user)
         {
             user.FirstName = updatedUser.FirstName;
             user.LastName = updatedUser.LastName;
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
+
         public void DeleteUser(User user)
         {
             _db.Users.Remove(user);
