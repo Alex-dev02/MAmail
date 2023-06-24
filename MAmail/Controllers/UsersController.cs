@@ -32,6 +32,11 @@ namespace MAmail.Controllers
         [HttpPatch("/update")]
         public async Task<IActionResult> UpdateUser([FromBody] UserUpdateDto user)
         {
+            int userId = int.Parse(this.User.Claims.First(i => i.Type == "userId").Value);
+
+            if (user.Id != userId)
+                return BadRequest("Invalid user id");
+
             var success = await _userService.UpdateUser(user);
 
             if (!success)
