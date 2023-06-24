@@ -16,9 +16,9 @@ namespace MAmail.Controllers
         }
 
         [HttpGet("/get/{userId}")]
-        public ActionResult<UserGetByIdResponseDto> GetUserById(int userId)
+        public async Task<ActionResult<UserGetByIdResponseDto>> GetUserById(int userId)
         {
-            var user = _userService.GetUserById(userId);
+            var user = await _userService.GetUserById(userId);
 
             if (user == null)
                 return NotFound();
@@ -27,9 +27,9 @@ namespace MAmail.Controllers
         }
 
         [HttpPatch("/update")]
-        public ActionResult UpdateUser([FromBody] UserUpdateDto user)
+        public async Task<IActionResult> UpdateUser([FromBody] UserUpdateDto user)
         {
-            var success = _userService.UpdateUser(user);
+            var success = await _userService.UpdateUser(user);
 
             if (!success)
                 return NotFound();
@@ -38,9 +38,9 @@ namespace MAmail.Controllers
         }
 
         [HttpDelete("/delete/{userId}")]
-        public ActionResult DeleteUser(int userId)
+        public async Task<IActionResult> DeleteUser(int userId)
         {
-            var success = _userService.DeleteUser(userId);
+            var success = await _userService.DeleteUser(userId);
 
             if (!success)
                 return NotFound();

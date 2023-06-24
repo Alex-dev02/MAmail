@@ -20,18 +20,18 @@ namespace MAmail.Services
 
             userRepository.CreateUser(user);
         }
-        public UserGetByIdResponseDto? GetUserById(int userId)
+        public async Task<UserGetByIdResponseDto?> GetUserById(int userId)
         {
-            User? user = userRepository.GetUserById(userId);
+            User? user = await userRepository.GetUserById(userId);
 
             if (user == null)
                 return null;
 
             return UserMappingExtenstions.ToUserGetByIdResponseDto(user);
         }
-        public bool UpdateUser(UserUpdateDto updatedUser)
+        public async Task<bool> UpdateUser(UserUpdateDto updatedUser)
         {
-            var user = userRepository.GetUserById(updatedUser.Id);
+            var user = await userRepository.GetUserById(updatedUser.Id);
 
             if (user == null)
                 return false;
@@ -40,9 +40,9 @@ namespace MAmail.Services
 
             return true;
         }
-        public bool DeleteUser(int userId)
+        public async Task<bool> DeleteUser(int userId)
         {
-            var userToDelete = userRepository.GetUserById(userId);
+            var userToDelete = await userRepository.GetUserById(userId);
 
             if (userToDelete == null)
                 return false;
