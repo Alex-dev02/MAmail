@@ -29,13 +29,30 @@ namespace MAmail.Repositories
                 };
             }
 
-            await _db.Users.AddAsync(UserMappingExtenstions.FromUserCreateRequestDto(user));
-
-            return new RegisterResponse()
+            try
             {
-                Success = true,
-                Message = "Success"
-            };
+                string hashedPassword = PasswordSecurity.HashPassword(user.Password);
+                user.Password = hashedPassword;
+
+                await _db.Users.AddAsync(UserMappingExtenstions.FromUserCreateRequestDto(user));
+                _db.SaveChanges();
+
+                return new RegisterResponse()
+                {
+                    Success = true,
+                    Message = "Success"
+                };
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return new RegisterResponse()
+                {
+                    Success = false,
+                    Message = "Password can't be empty"
+                };
+            }
         }
     }
 }
