@@ -8,24 +8,24 @@ namespace MAmail.Controllers
     [Route("/users")]
     public class UsersController : ControllerBase
     {
-        private UserService userService { get; set; }
+        private UserService _userService;
         
         public UsersController(UserService userService)
         {
-            this.userService = userService;
+            _userService = userService;
         }
 
         [HttpPost("/create")]
         public ActionResult CreateUser([FromBody] UserCreateRequestDto user)
         {
-            userService.CreateUser(user);
+            _userService.CreateUser(user);
 
             return Ok();
         }
         [HttpGet("/get/{userId}")]
         public ActionResult<UserGetByIdResponseDto> GetUserById(int userId)
         {
-            var user = userService.GetUserById(userId);
+            var user = _userService.GetUserById(userId);
 
             if (user == null)
                 return NotFound();
@@ -35,7 +35,7 @@ namespace MAmail.Controllers
         [HttpPatch("/update")]
         public ActionResult UpdateUser([FromBody] UserUpdateDto user)
         {
-            var success = userService.UpdateUser(user);
+            var success = _userService.UpdateUser(user);
 
             if (!success)
                 return NotFound();
@@ -45,7 +45,7 @@ namespace MAmail.Controllers
         [HttpDelete("/delete/{userId}")]
         public ActionResult DeleteUser(int userId)
         {
-            var success = userService.DeleteUser(userId);
+            var success = _userService.DeleteUser(userId);
 
             if (!success)
                 return NotFound();

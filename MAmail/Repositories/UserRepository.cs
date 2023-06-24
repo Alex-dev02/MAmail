@@ -7,35 +7,35 @@ namespace MAmail.Repositories
 {
     public class UserRepository
     {
-        private MAmailDBContext db;
+        private MAmailDBContext _db;
 
         public UserRepository(MAmailDBContext db)
         {
-            this.db = db;
+            _db = db;
         }
 
         public void CreateUser(User user)
         {
-            db.Users.Add(user);
+            _db.Users.Add(user);
 
-            db.SaveChanges();
+            _db.SaveChanges();
         }
         public User? GetUserById(int userId)
         {
-            return db.Users.Find(userId);
+            return _db.Users.Find(userId);
         }
         public void UpdateUser(UserUpdateDto updatedUser, User user)
         {
             user.FirstName = updatedUser.FirstName;
             user.LastName = updatedUser.LastName;
 
-            db.SaveChanges();
+            _db.SaveChanges();
         }
         public void DeleteUser(User user)
         {
-            db.Users.Remove(user);
+            _db.Users.Remove(user);
 
-            db.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }
