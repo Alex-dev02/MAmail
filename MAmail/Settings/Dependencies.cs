@@ -18,12 +18,16 @@ namespace MAmail.Settings
         private static void AddServices(IServiceCollection services)
         {
             services.AddScoped<UserService>();
+            services.AddScoped<EmailService>();
+            services.AddScoped<RecipientService>();
             services.AddScoped<AuthorizationService>();
             services.AddScoped<JWT>();
         }
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<UserRepository>();
+            services.AddScoped<EmailRepository>();
+            services.AddScoped<RecipientRepository>();
             services.AddScoped<AuthorizationRepository>();
         }
     }

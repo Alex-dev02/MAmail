@@ -13,5 +13,7 @@ namespace MAmail.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<Recipient> Recipients { get; set; }
     }
 }
