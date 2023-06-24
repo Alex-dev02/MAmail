@@ -1,6 +1,5 @@
 ﻿using MAmail.Dtos;
 using MAmail.Repositories;
-using MAmail.Utils;
 
 namespace MAmail.Services
 {
@@ -16,6 +15,11 @@ namespace MAmail.Services
         public async Task<RegisterResponse> Register(UserCreateRequestDto user)
         {
             return await _authorizationRepository.Register(user);
+        }
+
+        public async Task<LoginResponse> Login(UserLoginDto user)
+        {
+            return await _authorizationRepository.Login(user);
         }
     }
 }
