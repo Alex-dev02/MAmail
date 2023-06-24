@@ -1,4 +1,4 @@
-﻿namespace MAmail.Utils
+﻿namespace MAmail.Dtos
 {
     public struct RegisterResponse
     {
