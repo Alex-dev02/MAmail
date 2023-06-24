@@ -1,6 +1,7 @@
 ﻿using MAmail.Data;
 using MAmail.Repositories;
 using MAmail.Services;
+using MAmail.Utils;
 
 namespace MAmail.Settings
 {
@@ -18,6 +19,7 @@ namespace MAmail.Settings
         {
             services.AddScoped<UserService>();
             services.AddScoped<AuthorizationService>();
+            services.AddScoped<JWT>();
         }
         private static void AddRepositories(IServiceCollection services)
         {
