@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace MAmail.Controllers
 {
     [ApiController]
-    [Route("authorization")]
-    public class AuthorizationController : ControllerBase
+    [Route("authentication")]
+    public class AuthenticationController : ControllerBase
     {
-        private AuthorizationService _authorizationService;
+        private AuthenticationService _authenticationService;
 
-        public AuthorizationController(AuthorizationService authorizationService)
+        public AuthenticationController(AuthenticationService authenticationService)
         {
-            _authorizationService = authorizationService;
+            _authenticationService = authorizationService;
         }
 
         [AllowAnonymous]

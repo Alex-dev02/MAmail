@@ -6,26 +6,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MAmail.Repositories
 {
-    public class AuthorizationRepository
+    public class AuthenticationRepository
     {
         private MAmailDBContext _db;
         private UserRepository _userRepository;
         private JWT _JWT;
 
-        public AuthorizationRepository(MAmailDBContext db, UserRepository userRepository, JWT jwt)
+        public AuthenticationRepository(MAmailDBContext db, UserRepository userRepository, JWT jwt)
         {
             _db = db;
             _userRepository = userRepository;
             _JWT = jwt;
         }
 
-        public async Task<RegisterResponse> Register(UserCreateRequestDto user)
+        public async Task<ActionInfo> Register(UserCreateRequestDto user)
         {
             var isEmailUsed = await _userRepository.GetUserByEmail(user.Email);
 
             if (isEmailUsed != null)
             {
-                return new RegisterResponse()
+                return new ActionInfo()
                 {
                     Success = false,
                     Message = "Email already used!"
@@ -40,7 +40,7 @@ namespace MAmail.Repositories
                 await _db.Users.AddAsync(UserMappingExtenstions.FromUserCreateRequestDto(user));
                 _db.SaveChanges();
 
-                return new RegisterResponse()
+                return new ActionInfo()
                 {
                     Success = true,
                     Message = "Success"
@@ -50,7 +50,7 @@ namespace MAmail.Repositories
             {
                 Console.WriteLine(e.Message);
 
-                return new RegisterResponse()
+                return new ActionInfo()
                 {
                     Success = false,
                     Message = "Password can't be empty"
@@ -58,23 +58,23 @@ namespace MAmail.Repositories
             }
         }
 
-        public async Task<LoginResponse> Login(UserLoginDto user)
+        public async Task<ActionInfo> Login(UserLoginDto user)
         {
             var userByEmail = await _userRepository.GetUserByEmail(user.Email);
 
             if (userByEmail == null || !PasswordSecurity.VerifyHashedPassword(userByEmail.PasswordHash, user.Password))
             {
-                return new LoginResponse()
+                return new ActionInfo()
                 {
                     Success = false,
-                    Token = null,
+                    Message = "Invalid credentials",
                 };
             }
 
-            return new LoginResponse()
+            return new ActionInfo()
             {
                 Success = true,
-                Token = _JWT.GetToken(userByEmail)
+                Message = _JWT.GetToken(userByEmail)
             };
         }
     }
