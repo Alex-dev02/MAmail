@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MAmail.Migrations
 {
     [DbContext(typeof(MAmailDBContext))]
-    [Migration("20230624200811_Init")]
-    partial class Init
+    [Migration("20230625100854_FinalDBSchema")]
+    partial class FinalDBSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,14 +69,14 @@ namespace MAmail.Migrations
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RecipentId")
+                    b.Property<int>("URecipientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmailId");
 
-                    b.HasIndex("RecipentId");
+                    b.HasIndex("URecipientId");
 
                     b.ToTable("Recipients");
                 });
@@ -128,15 +128,15 @@ namespace MAmail.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MAmail.Entities.User", "Recipent")
+                    b.HasOne("MAmail.Entities.User", "URecipient")
                         .WithMany()
-                        .HasForeignKey("RecipentId")
+                        .HasForeignKey("URecipientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Email");
 
-                    b.Navigation("Recipent");
+                    b.Navigation("URecipient");
                 });
 #pragma warning restore 612, 618
         }

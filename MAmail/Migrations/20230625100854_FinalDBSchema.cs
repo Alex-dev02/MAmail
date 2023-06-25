@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MAmail.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class FinalDBSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,10 +17,10 @@ namespace MAmail.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -34,10 +34,10 @@ namespace MAmail.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SenderId = table.Column<int>(type: "int", nullable: true)
+                    SenderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,7 +58,7 @@ namespace MAmail.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false),
-                    RecipentId = table.Column<int>(type: "int", nullable: false),
+                    URecipientId = table.Column<int>(type: "int", nullable: false),
                     EmailId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -71,8 +71,8 @@ namespace MAmail.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Recipients_Users_RecipentId",
-                        column: x => x.RecipentId,
+                        name: "FK_Recipients_Users_URecipientId",
+                        column: x => x.URecipientId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -89,9 +89,9 @@ namespace MAmail.Migrations
                 column: "EmailId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipients_RecipentId",
+                name: "IX_Recipients_URecipientId",
                 table: "Recipients",
-                column: "RecipentId");
+                column: "URecipientId");
         }
 
         /// <inheritdoc />
