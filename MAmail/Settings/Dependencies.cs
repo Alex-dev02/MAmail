@@ -20,7 +20,7 @@ namespace MAmail.Settings
             services.AddScoped<UserService>();
             services.AddScoped<EmailService>();
             services.AddScoped<RecipientService>();
-            services.AddScoped<AuthorizationService>();
+            services.AddScoped<AuthenticationService>();
             services.AddScoped<JWT>();
         }
         private static void AddRepositories(IServiceCollection services)
@@ -28,7 +28,7 @@ namespace MAmail.Settings
             services.AddScoped<UserRepository>();
             services.AddScoped<EmailRepository>();
             services.AddScoped<RecipientRepository>();
-            services.AddScoped<AuthorizationRepository>();
+            services.AddScoped<AuthenticationRepository>();
         }
     }
 }
