@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MAmail.Controllers
 {
     [ApiController]
-    [Route("/authorization")]
+    [Route("authorization")]
     public class AuthorizationController : ControllerBase
     {
         private AuthorizationService _authorizationService;
@@ -17,7 +17,7 @@ namespace MAmail.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserCreateRequestDto user)
         {
             var res = await _authorizationService.Register(user);
@@ -29,7 +29,7 @@ namespace MAmail.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto user)
         {
             var res = await _authorizationService.Login(user);

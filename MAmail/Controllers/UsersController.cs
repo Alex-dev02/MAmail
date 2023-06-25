@@ -8,7 +8,7 @@ namespace MAmail.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("/users")]
+    [Route("users")]
     public class UsersController : ControllerBase
     {
         private UserService _userService;
@@ -18,7 +18,7 @@ namespace MAmail.Controllers
             _userService = userService;
         }
 
-        [HttpGet("/get/{userId}")]
+        [HttpGet("get/{userId}")]
         public async Task<ActionResult<UserGetByIdResponseDto>> GetUserById(int userId)
         {
             var user = await _userService.GetUserById(userId);
@@ -29,7 +29,7 @@ namespace MAmail.Controllers
             return Ok(user);
         }
 
-        [HttpPatch("/update")]
+        [HttpPatch("update")]
         public async Task<IActionResult> UpdateUser([FromBody] UserUpdateDto user)
         {
             int userId = int.Parse(this.User.Claims.First(i => i.Type == "userId").Value);
@@ -45,7 +45,7 @@ namespace MAmail.Controllers
             return Ok();
         }
 
-        [HttpDelete("/delete")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteUser()
         {
             int userId = int.Parse(this.User.Claims.First(i => i.Type == "userId").Value);
