@@ -13,14 +13,14 @@ namespace MAmail.Controllers
 
         public AuthenticationController(AuthenticationService authenticationService)
         {
-            _authenticationService = authorizationService;
+            _authenticationService = authenticationService;
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserCreateRequestDto user)
         {
-            var res = await _authorizationService.Register(user);
+            var res = await _authenticationService.Register(user);
 
             if (!res.Success)
                 return Conflict(res);
@@ -32,7 +32,7 @@ namespace MAmail.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto user)
         {
-            var res = await _authorizationService.Login(user);
+            var res = await _authenticationService.Login(user);
 
             if (!res.Success)
                 return Unauthorized(res);
