@@ -33,7 +33,12 @@ namespace MAmail.Repositories
 
         public async Task<List<User>?> GetUsersByEmail(List<string> emails)
         {
-            return await _db.Users.Where(u => emails.Contains(u.Email)).ToListAsync();
+            var res = await _db.Users.Where(u => emails.Contains(u.Email)).ToListAsync();
+
+            if (res.Count == 0)
+                return null;
+
+            return res;
         }
 
         public async void UpdateUser(UserUpdateDto updatedUser, User user)
